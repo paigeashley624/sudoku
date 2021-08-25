@@ -1,0 +1,35 @@
+name: deploy-mintbean-sudoku
+
+on:
+  push:
+    branches:
+      - feat/GithubAction
+    paths:
+      - 'src/**'
+
+defaults:
+  run:
+    working-directory: /
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+
+      - name: ACTIONS_ALLOW_UNSECURE_COMMANDS
+        run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
+
+      - uses: chrislennon/action-aws-cli@v1.1
+      - run: aws s3 sync dist s3://mintbeansudoku/
+        env:
+          AWS_ACCESS_KEY_ID: AKIAU2VSAXDOJE7F4LA4
+          AWS_SECRET_ACCESS_KEY: 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
+
+      - run: aws cloudfront create-invalidation --distribution-id E31A0DPJATIQY9 --paths "/index.html"
+        env:
+          AWS_ACCESS_KEY_ID: AKIAU2VSAXDOJE7F4LA4
+          AWS_SECRET_ACCESS_KEY: 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
