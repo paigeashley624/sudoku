@@ -1,6 +1,9 @@
 name: deploy-mintbean-sudoku
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 defaults:
   run:
@@ -19,12 +22,12 @@ jobs:
         run: echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
 
       - uses: chrislennon/action-aws-cli@v1.1
-      - run: aws s3 sync build s3://mintbeansudoku/
+      - run: aws s3 sync build s3://${{ secrets.AWS_S3_BUCKET_NAME }}/
         env:
-          AWS_ACCESS_KEY_ID: AKIAU2VSAXDOJE7F4LA4
-          AWS_SECRET_ACCESS_KEY: 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
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - run: aws cloudfront create-invalidation --distribution-id E31A0DPJATIQY9 --paths "/index.html"
+      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/index.html"
         env:
-          AWS_ACCESS_KEY_ID: AKIAU2VSAXDOJE7F4LA4
-          AWS_SECRET_ACCESS_KEY: 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
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
