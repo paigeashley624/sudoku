@@ -1,11 +1,6 @@
 name: deploy-mintbean-sudoku
 
-on:
-  push:
-    branches:
-      - feat/GithubAction
-    paths:
-      - 'src/**'
+on: [push]
 
 defaults:
   run:
