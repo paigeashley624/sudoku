@@ -1,5 +1,30 @@
-.sudoku-box {
+/* .sudoku-box {
   width: 40px;
   height: 40px;
   border: 1px solid white;
+} */
+.game-board {
+  display: grid;
+  border: 1px solid white;
+  grid-template-rows: 200px 200px 200px;
+  grid-template-columns: 200px 200px 200px;
+}
+body {
+  display: flex;
+  justify-content: center;
+}
+.box {
+  background: #444;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.sudoku-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
 }

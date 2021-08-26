@@ -1,14 +1,40 @@
-import React from 'react';
-import './Sudoku.css';
+import React from "react";
+import "./Sudoku.css";
 
-const Sudoku = () => {
+function SudokuItem() {
   return (
-    <section>
-      <h1>Sudoku</h1>
-      <div className="sudoku-box"></div>
-      <div className="sudoku-box"></div>
-    </section>
+    <div className="game-board">
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+      <div className="box">200px x 200px</div>
+    </div>
+  );
+}
+
+const SudokuRow = () => {
+  return (
+    <div className="sudoku-container">
+      {[0, 1, 2].map((_, i) => (
+        <SudokuItem key={i} />
+      ))}
+    </div>
   );
 };
+
+function Sudoku() {
+  return (
+    <section>
+      <SudokuRow />
+      <SudokuRow />
+      <SudokuRow />
+    </section>
+  );
+}
 
 export default Sudoku;
