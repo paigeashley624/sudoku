@@ -15,7 +15,7 @@ class SudokuGame {
       for (let j = 0; j < board[i].length; j++) {
         const element = board[i][j];
 
-        if (this.board[i][j] !== element) {
+        if (this.board?.[i]?.[j] !== element) {
           return false;
         }
       }
@@ -27,7 +27,7 @@ class SudokuGame {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
         const element = board[j][i];
-        if (this.board[j][i] !== element) {
+        if (this.board?.[j]?.[i] !== element) {
           return false;
         }
       }
