@@ -1,8 +1,9 @@
 class SudokuGame {
-  constructor() {}
+  constructor(private board?: number[][]) {}
 
   public create = () => {
-    return this.createRows();
+    this.board = this.createBoard();
+    return this.board;
   };
 
   public isSolutionValid = (board: number[][]) => {
@@ -11,13 +12,10 @@ class SudokuGame {
 
   private areRowsUnique = (board: number[][]) => {
     for (let i = 0; i < board.length; i++) {
-      const map: Record<number, number> = {};
-
       for (let j = 0; j < board[i].length; j++) {
         const element = board[i][j];
-        map[element] = map[element] ? map[element] + 1 : 1;
 
-        if (map[element] !== 1) {
+        if (this.board[i][j] !== element) {
           return false;
         }
       }
@@ -27,13 +25,9 @@ class SudokuGame {
 
   private areColumnsUnique = (board: number[][]) => {
     for (let i = 0; i < board.length; i++) {
-      const map: Record<number, number> = {};
-
       for (let j = 0; j < board[i].length; j++) {
         const element = board[j][i];
-        map[element] = map[element] ? map[element] + 1 : 1;
-
-        if (map[element] !== 1) {
+        if (this.board[j][i] !== element) {
           return false;
         }
       }
@@ -42,7 +36,7 @@ class SudokuGame {
     return true;
   };
 
-  private createRows = () => {
+  private createBoard = () => {
     const allPossibleValues = this.createPossibleValues();
 
     const totalLength = allPossibleValues.length;
@@ -82,7 +76,7 @@ class SudokuGame {
     return Array(9)
       .fill(0)
       .map((_, index) => {
-        return index;
+        return index + 1;
       });
   };
 

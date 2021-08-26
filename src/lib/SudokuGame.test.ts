@@ -2,44 +2,29 @@ import SudokuGame from './SudokuGame';
 
 describe('sudoku', () => {
   describe('isSolutionValid', () => {
+    const validSolution = [
+      [4, 3, 2, 1],
+      [1, 2, 3, 4],
+      [2, 1, 4, 3],
+      [3, 4, 1, 2],
+    ];
+
     it('should be able to validate solutions', () => {
-      const sudokuGame = new SudokuGame();
+      const sudokuGame = new SudokuGame(validSolution);
 
-      expect(
-        sudokuGame.isSolutionValid([
-          [1, 2],
-          [2, 1],
-        ])
-      ).toBeTruthy();
-
-      expect(
-        sudokuGame.isSolutionValid([
-          [4, 3, 2, 1],
-          [1, 2, 3, 4],
-          [2, 1, 4, 3],
-          [3, 4, 1, 2],
-        ])
-      ).toBeTruthy();
+      expect(sudokuGame.isSolutionValid(validSolution)).toBeTruthy();
     });
 
     it('should be able to validate invalid solutions', () => {
-      const sudokuGame = new SudokuGame();
+      const invalidBoard = [
+        [1, 2, 3, 4],
+        [1, 2, 3, 4],
+        [2, 1, 4, 3],
+        [3, 4, 1, 2],
+      ];
+      const sudokuGame = new SudokuGame(validSolution);
 
-      expect(
-        sudokuGame.isSolutionValid([
-          [1, 2],
-          [1, 2],
-        ])
-      ).toBeFalsy();
-
-      expect(
-        sudokuGame.isSolutionValid([
-          [1, 2, 3, 4],
-          [1, 2, 3, 4],
-          [2, 1, 4, 3],
-          [3, 4, 1, 2],
-        ])
-      ).toBeFalsy();
+      expect(sudokuGame.isSolutionValid(invalidBoard)).toBeFalsy();
     });
   });
 
