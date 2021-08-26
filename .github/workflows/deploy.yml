@@ -1,6 +1,9 @@
 name: deploy-mintbean-sudoku
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 defaults:
   run:
