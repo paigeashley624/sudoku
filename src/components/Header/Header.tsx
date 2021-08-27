@@ -1,12 +1,17 @@
 import React from 'react';
 import './Header.scss';
 
-const Header = () => {
+interface HeaderProps {
+  text?: string;
+  subText?: string;
+}
+
+const Header = ({ text = 'Mintbean Game Catalog', subText = 'Welcome to the amazing world of Mintbean Hackathon Gaming!' }: HeaderProps) => {
   return (
     <header className="landing-page-banner">
-      <h1 className="landing-page-banner-title">Mintbean Game Catalog</h1>
+      <h1 className="landing-page-banner-title">{text}</h1>
 
-      <h3 className="landing-page-banner-intro">Welcome to the amazing world of Mintbean Hackathon Gaming!</h3>
+      <h3 className="landing-page-banner-intro">{subText}</h3>
     </header>
   );
 };
