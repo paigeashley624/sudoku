@@ -1,21 +1,25 @@
 .game-board {
   display: grid;
   border: 1px solid rgb(2, 0, 0);
-  grid-template-rows: 75px 75px 75px;
-  grid-template-columns: 75px 75px 75px;
+  grid-template-rows: 65px 65px 65px;
+  grid-template-columns: 65px 65px 65px;
 }
 body {
   display: flex;
   justify-content: center;
 }
 .box {
-  background: rgb(226, 201, 149);
+  background: rgb(255, 255, 255);
   border: 1px solid rgb(215, 215, 211);
   display: flex;
   align-items: center;
   justify-content: center;
   color: rgb(17, 7, 7);
   font-size: 30px;
+}
+.sudoku-level-selector-container {
+  display: flex;
+  // need to adjust later - flex gap or gap. justify around or justify evenly
 }
 
 .sudoku-container {
@@ -50,14 +54,53 @@ body {
 // -----start of css for number selector -----
 
 .number-selector {
-  display: grid;
-  border: 1px solid rgb(2, 0, 0);
-  grid-template-rows: 75px 75px 75px;
-  grid-template-columns: 75px 75px 75px;
-}
-.number-container {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: row;
+
+  /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+  flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.flex-container {
+  /* We first create a flex layout context */
+  display: flex;
+
+  /* Then we define the flow direction 
+     and if we allow the items to wrap 
+   * Remember this is the same as:
+   * flex-direction: row;
+   * flex-wrap: wrap;
+   */
+  flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.flex-item {
+  background: tomato;
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin-top: 10px;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
 }
