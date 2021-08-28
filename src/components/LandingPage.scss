@@ -1,12 +1,10 @@
 $duration: 250ms;
+$mobileBreakPoint: 700px;
 
 .game-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 100%);
-  overflow: hidden;
   scroll-behavior: smooth;
 
-  section {
+  article {
     width: 100%;
     position: relative;
     display: flex;
@@ -23,7 +21,7 @@ $duration: 250ms;
       box-shadow: 0px 0px 5px #fff;
       position: relative;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: $mobileBreakPoint) {
         width: 300px;
         height: 300px;
       }
@@ -36,7 +34,6 @@ $duration: 250ms;
       p {
         position: absolute;
         left: 50%;
-        bottom: 0px;
         transform: translate(-50%, -50%);
         margin: 0 auto;
         font-size: 24px;
@@ -46,6 +43,10 @@ $duration: 250ms;
         color: #bf0000;
         background: black;
         opacity: 0.9;
+
+        @media only screen and (max-width: $mobileBreakPoint) {
+          font-size: 14px;
+        }
       }
 
       &:hover {
@@ -54,7 +55,7 @@ $duration: 250ms;
       }
     }
 
-    a {
+    button {
       position: absolute;
       color: #fff;
       text-decoration: none;
@@ -64,6 +65,8 @@ $duration: 250ms;
       padding: 20px;
       text-align: center;
       z-index: 1;
+      border: none;
+      cursor: pointer;
 
       &:nth-of-type(1) {
         bottom: 0;
@@ -81,10 +84,21 @@ $duration: 250ms;
       }
     }
   }
+
+  .swipe-hint {
+    display: none;
+    color: white;
+    text-align: center;
+    margin-top: 12px;
+
+    @media only screen and (max-width: $mobileBreakPoint) {
+      display: block;
+    }
+  }
 }
 
-@media only screen and (max-width: 600px) {
-  a.arrow__btn {
+@media only screen and (max-width: $mobileBreakPoint) {
+  button.arrow__btn {
     display: none;
   }
 }
