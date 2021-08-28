@@ -16,9 +16,32 @@ body {
   justify-content: center;
   color: rgb(17, 7, 7);
   font-size: 30px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+  &.box-is-visible {
+    background: gray;
+    cursor: not-allowed;
+  }
+
+  &:nth-child(3n) {
+    margin-right: 1px;
+  }
+}
+
+.box-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  &:nth-child(3n) {
+    margin-bottom: 1px;
+  }
 }
 .sudoku-level-selector-container {
   display: flex;
+  justify-content: space-around;
   // need to adjust later - flex gap or gap. justify around or justify evenly
 }
 
@@ -55,7 +78,6 @@ body {
 
 .number-selector {
   display: flex;
-
   /* Then we define the flow direction 
      and if we allow the items to wrap 
    * Remember this is the same as:
@@ -63,10 +85,8 @@ body {
    * flex-wrap: wrap;
    */
   flex-flow: row wrap;
-
   /* Then we define how is distributed the remaining space */
   justify-content: space-around;
-
   padding: 0;
   margin: 0;
   list-style: none;
@@ -75,7 +95,6 @@ body {
 .flex-container {
   /* We first create a flex layout context */
   display: flex;
-
   /* Then we define the flow direction 
      and if we allow the items to wrap 
    * Remember this is the same as:
@@ -83,24 +102,28 @@ body {
    * flex-wrap: wrap;
    */
   flex-flow: row wrap;
-
   /* Then we define how is distributed the remaining space */
   justify-content: space-around;
-
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .flex-item {
-  background: tomato;
+  background: rgb(5, 5, 5);
   padding: 5px;
-  width: 200px;
-  height: 150px;
+  width: 65px;
+  height: 50px;
   margin-top: 10px;
-  line-height: 150px;
+  line-height: 50px;
   color: white;
-  font-weight: bold;
+  // font-weight: bold;
   font-size: 3em;
   text-align: center;
+
+  cursor: pointer;
+
+  &:hover {
+    color: #bf0000;
+  }
 }
