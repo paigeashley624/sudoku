@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.scss';
+import { useSwipeable } from 'react-swipeable';
 
 import Header from './Header/Header';
 import { ReactComponent as Sudoku } from './../images/sudoku.svg';
@@ -9,44 +10,45 @@ import { ReactComponent as Chess } from './../images/chess.svg';
 
 interface IGame {
   name: string;
-  index: number;
+  path: string;
   Image: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
 }
 interface GameComponent extends IGame {
-  path: string;
+  gameIndexVisible: boolean;
+  onBackClick: () => void;
+  onNextClick: () => void;
 }
 
-const GameList: GameComponent[] = [
+const GameList: IGame[] = [
   {
     name: 'Sudoku',
     path: 'sudoku',
     Image: Sudoku,
-    index: 0,
   },
   {
     name: 'Chess',
     path: 'chess',
     Image: Chess,
-    index: 1,
   },
   {
     name: 'Tic Tac Toe',
     path: 'tic-tac-toe',
     Image: TicTacToe,
-    index: 2,
   },
 ];
 
-const Game = ({ Image, name, index, path }: GameComponent) => {
+const Game = ({ Image, name, path, gameIndexVisible, onBackClick, onNextClick }: GameComponent) => {
   const history = useHistory();
-  const previousIndex = index - 1 < 0 ? GameList.length - 1 : index - 1;
-  const nextIndex = index + 1 === GameList.length ? 0 : index + 1;
+
+  if (!gameIndexVisible) {
+    return null;
+  }
 
   return (
-    <section id={`game${index}`}>
-      <a className="arrow__btn" href={`#game${previousIndex}`}>
+    <article>
+      <button className="arrow__btn" onClick={onBackClick}>
         ‹
-      </a>
+      </button>
 
       <div className="item">
         <Image
@@ -57,23 +59,44 @@ const Game = ({ Image, name, index, path }: GameComponent) => {
         <p>{name}</p>
       </div>
 
-      <a className="arrow__btn" href={`#game${nextIndex}`}>
+      <button className="arrow__btn" onClick={onNextClick}>
         ›
-      </a>
-    </section>
+      </button>
+    </article>
   );
 };
 
 const LandingPage = () => {
+  const [gameIndexVisible, setGameIndexVisible] = useState<number>(0);
+
+  const onBackClick = useCallback(() => {
+    setGameIndexVisible((index) => (index - 1 < 0 ? GameList.length - 1 : index - 1));
+  }, []);
+
+  const onNextClick = useCallback(() => {
+    setGameIndexVisible((index) => (index + 1 === GameList.length ? 0 : index + 1));
+  }, []);
+
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => {
+      if (eventData.dir === 'Right') {
+        onNextClick();
+      } else if (eventData.dir === 'Left') {
+        onBackClick();
+      }
+    },
+  });
+
   return (
     <main className="landing-page-container">
       <Header />
 
-      <div className="game-wrapper">
-        {GameList.map((game) => (
-          <Game key={game.name} {...game} />
+      <section {...handlers} className="game-wrapper">
+        {GameList.map((game, index) => (
+          <Game key={game.name} gameIndexVisible={gameIndexVisible === index} onBackClick={onBackClick} onNextClick={onNextClick} {...game} />
         ))}
-      </div>
+        <p className="swipe-hint">(Swipe for more games)</p>
+      </section>
     </main>
   );
 };
