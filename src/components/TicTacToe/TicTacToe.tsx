@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
+import ActionButton from './../ActionButton/ActionButton';
 import Header from './../Header/Header';
 import './TicTacToe.scss';
 
@@ -108,7 +109,7 @@ class TicTacToe extends React.Component<TicTacToeProps, TicTacToeState> {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = stepNumber === 9 ? 'Tie!' : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      status = stepNumber === 9 ? "It's a Tie!" : 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
     return (
@@ -128,22 +129,22 @@ class TicTacToe extends React.Component<TicTacToeProps, TicTacToeState> {
               <p className="game-status-text">{status}</p>
 
               <div className="button-actions">
-                <button
+                <ActionButton
                   onClick={() => {
                     navHistory.push('/');
                   }}
                 >
                   Go Home
-                </button>
+                </ActionButton>
 
-                <button
+                <ActionButton
                   disabled={stepNumber === 0}
                   onClick={() => {
                     this.jumpTo(0);
                   }}
                 >
                   Start New Game
-                </button>
+                </ActionButton>
               </div>
             </div>
           </div>

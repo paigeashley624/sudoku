@@ -1,0 +1,28 @@
+$mobileBreakPoint: 700px;
+
+.mintbean-breakout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  #mintbean-breakout-canvas {
+    background: black;
+    border: 1px solid #bf0000;
+
+    @media only screen and (max-width: $mobileBreakPoint) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .mintbean-breakout-actions {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .mintbean-breakout-status-text {
+    color: white;
+  }
+}
