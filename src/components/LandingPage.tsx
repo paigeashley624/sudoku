@@ -6,7 +6,7 @@ import { useSwipeable } from 'react-swipeable';
 import Header from './Header/Header';
 import { ReactComponent as Sudoku } from './../images/sudoku.svg';
 import { ReactComponent as TicTacToe } from './../images/tic-tac-toe.svg';
-import { ReactComponent as Chess } from './../images/chess.svg';
+import { ReactComponent as Breakout } from './../images/breakout.svg';
 
 interface IGame {
   name: string;
@@ -26,9 +26,9 @@ const GameList: IGame[] = [
     Image: Sudoku,
   },
   {
-    name: 'Chess',
-    path: 'chess',
-    Image: Chess,
+    name: 'Breakout',
+    path: 'breakout',
+    Image: Breakout,
   },
   {
     name: 'Tic Tac Toe',

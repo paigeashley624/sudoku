@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.0" viewBox="0 0 60 60">
+<path d="m44.467 24.051-11.532 19.975-29.385-40.25" fill="none" stroke="black" stroke-dasharray="3.1250000,3.1250000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.125"/>
+<path transform="translate(18.765 -4.266)" d="m37.536 21.064a12.215 12.215 0 1 0-24.43 0 12.215 12.215 0 1 0 24.43 0z" fill="white" fill-rule="evenodd" stroke="black" stroke-width="3.125"/>
+<path d="m11.993 46.445c-1.107 0-1.9974 0.891-1.9974 1.997v5.931c0 1.107 0.8904 1.997 1.9974 1.997h34.293c1.106 0 1.997-0.89 1.997-1.997v-5.931c0-1.106-0.891-1.997-1.997-1.997h-34.293z" fill="white" fill-rule="evenodd" stroke-width="1pt"/>
+<path d="m8.6833 46.445h39.158v10.052h-38.903" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.125"/>
+<path d="m6.844 46.442c-0.2427 0-0.438 0.196-0.438 0.438l0.0552 9.181c0 0.243 0.1954 0.438 0.4381 0.438h9.1017c0.242 0 0.438-0.195 0.438-0.438l-0.056-9.181c0-0.242-0.195-0.438-0.438-0.438h-9.101z" fill="white" fill-rule="evenodd" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.125"/>
+<path d="m46.844 46.442c-0.243 0-0.438 0.196-0.438 0.438l0.055 9.181c0 0.243 0.196 0.438 0.438 0.438h9.102c0.242 0 0.438-0.195 0.438-0.438l-0.056-9.181c0-0.242-0.195-0.438-0.438-0.438h-9.101z" fill="white" fill-rule="evenodd" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.125"/>
+</svg>
