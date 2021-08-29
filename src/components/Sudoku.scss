@@ -20,6 +20,10 @@ body {
   height: 50px;
   cursor: pointer;
 
+  &.highlighted {
+    background: #ddd;
+  }
+
   &.box-is-visible {
     background: gray;
     cursor: not-allowed;
@@ -66,11 +70,12 @@ body {
   }
 
   .sudoku-level-selector {
-    // color: white;
-    // float: left;
-  }
-  h4 {
-    // float: right;
+    cursor: pointer;
+    color: white;
+    float: left;
+    &.sudoku-level-selected {
+      color: #bf0000;
+    }
   }
 }
 
@@ -126,4 +131,9 @@ body {
   &:hover {
     color: #bf0000;
   }
+}
+
+.sudoku-win {
+  color: #bf0000;
+  margin-top: 24px;
 }
