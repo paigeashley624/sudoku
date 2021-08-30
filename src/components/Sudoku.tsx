@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import SudokuGenerator from './../lib/SudokuGame';
-import './Sudoku.scss';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import SudokuGenerator from "./../lib/SudokuGame";
+import "./Sudoku.scss";
 
 enum Difficulty {
   EASY,
@@ -18,9 +18,9 @@ const randomIsVisible = (level: Difficulty) => {
 
   switch (level) {
     case Difficulty.EASY:
-      return rand <= 8;
-    case Difficulty.MEDIUM:
       return rand <= 5;
+    case Difficulty.MEDIUM:
+      return rand <= 4;
     case Difficulty.HARD:
       return rand <= 2;
     default:
@@ -57,8 +57,13 @@ const SudokuRow = ({ data, row, level }: SudokuRowProps) => {
     <div className="box-row">
       {data.map((num, i) => {
         return (
-          <div key={`row-${row} column-${i}`} data-column={i} data-row={row} className={`box ${originalRowData?.[i] === -1 ? '' : 'box-is-visible'}`}>
-            {num === -1 ? '' : num}
+          <div
+            key={`row-${row} column-${i}`}
+            data-column={i}
+            data-row={row}
+            className={`box ${originalRowData?.[i] === -1 ? "" : "box-is-visible"}`}
+          >
+            {num === -1 ? "" : num}
           </div>
         );
       })}
@@ -118,15 +123,15 @@ function Sudoku() {
     selectedItem.current = target;
 
     if (selectedItem.current) {
-      selectedItem.current.classList.add('highlighted');
+      selectedItem.current.classList.add("highlighted");
     }
   }, []);
 
   const onItemClick = useCallback(
     (evt: any) => {
       const target = evt.target;
-      const column = selectedItem.current?.getAttribute('data-column') as string;
-      const row = selectedItem.current?.getAttribute('data-row') as string;
+      const column = selectedItem.current?.getAttribute("data-column") as string;
+      const row = selectedItem.current?.getAttribute("data-row") as string;
 
       if (column && row) {
         setUserBoard((b) => {
@@ -144,13 +149,22 @@ function Sudoku() {
       {/* need to get this aligned side by side */}
       <h1 className="sudoku-page-banner-title">Sudoku</h1>
       <div className="sudoku-level-selector-container">
-        <h4 className={`sudoku-level-selector ${level === Difficulty.EASY ? 'sudoku-level-selected' : ''}`} onClick={() => setLevel(Difficulty.EASY)}>
+        <h4
+          className={`sudoku-level-selector ${level === Difficulty.EASY ? "sudoku-level-selected" : ""}`}
+          onClick={() => setLevel(Difficulty.EASY)}
+        >
           Easy
         </h4>
-        <h4 className={`sudoku-level-selector ${level === Difficulty.MEDIUM ? 'sudoku-level-selected' : ''}`} onClick={() => setLevel(Difficulty.MEDIUM)}>
+        <h4
+          className={`sudoku-level-selector ${level === Difficulty.MEDIUM ? "sudoku-level-selected" : ""}`}
+          onClick={() => setLevel(Difficulty.MEDIUM)}
+        >
           Medium
         </h4>
-        <h4 className={`sudoku-level-selector ${level === Difficulty.HARD ? 'sudoku-level-selected' : ''}`} onClick={() => setLevel(Difficulty.HARD)}>
+        <h4
+          className={`sudoku-level-selector ${level === Difficulty.HARD ? "sudoku-level-selected" : ""}`}
+          onClick={() => setLevel(Difficulty.HARD)}
+        >
           Hard
         </h4>
       </div>
