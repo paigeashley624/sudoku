@@ -1,4 +1,22 @@
-# Getting Started with Create React App
+**Welcome to Mintbean Game Catalog:**
+
+The game catalog consist of games such as: Tic-Tac-Toe, Sudoku, and Breakout
+
+![Screen Shot 2021-08-30 at 1 40 27 PM](https://user-images.githubusercontent.com/77357196/131381913-875bc625-2334-4f65-821c-b2ffaa12235e.png)
+![Screen Shot 2021-08-30 at 1 50 26 PM](https://user-images.githubusercontent.com/77357196/131382553-1a91d678-272f-4ceb-b5a2-63b8bbf4a56f.png)
+![Screen Shot 2021-08-30 at 1 50 33 PM](https://user-images.githubusercontent.com/77357196/131382556-3ed8c2dd-51c5-4374-87b9-6c4c99b393ae.png)
+
+**Technologies Used:**
+
+- HTML
+- CSS
+- SASS
+- JavaScript 
+- React
+- AWS
+
+
+**Getting Started with Create React App**
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
