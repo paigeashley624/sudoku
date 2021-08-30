@@ -15,7 +15,7 @@ The game catalog consist of games such as: Tic-Tac-Toe, Sudoku, and Breakout
 - React
 - AWS
 
-** Link to site:**
+**Link to site:**
 https://d7mymwfboiwyw.cloudfront.net/
 
 
