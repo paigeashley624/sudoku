@@ -15,8 +15,11 @@ The game catalog consist of games such as: Tic-Tac-Toe, Sudoku, and Breakout
 - React
 - AWS
 
+** Link to site:**
+https://d7mymwfboiwyw.cloudfront.net/
 
-**Getting Started with Create React App**
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
