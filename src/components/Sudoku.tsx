@@ -21,7 +21,7 @@ const randomIsVisible = (level: Difficulty) => {
 
   switch (level) {
     case Difficulty.EASY:
-      return rand <= 8;
+      return rand <= 7;
     case Difficulty.MEDIUM:
       return rand <= 4;
     case Difficulty.HARD:
@@ -89,55 +89,6 @@ function Sudoku() {
     }
   };
 
-  useEffect(() => {
-    if (level !== defaultLevel) {
-      removeUneditedField();
-      setUserWon(false);
-      setUserBoard([]);
-      const board = sudokuGame.current.create();
-      console.table(board);
-      setBoard(board);
-    }
-  }, [level]);
-
-  useEffect(() => {
-    const board = sudokuGame.current.create();
-    console.table(board);
-    setBoard(board);
-
-    document.addEventListener('keyup', onKeyboardClick);
-
-    return () => {
-      document.removeEventListener('keyup', onKeyboardClick);
-    };
-  }, []);
-
-  useEffect(() => {
-    const tmpBoard: number[][] = [];
-
-    if (board.length) {
-      for (let row = 0; row < board.length; row++) {
-        for (let column = 0; column < board[row].length; column++) {
-          tmpBoard[row] = tmpBoard[row] ?? [];
-          tmpBoard[row][column] = randomIsVisible(level) ? board[row][column] : -1;
-        }
-      }
-      setUserBoard(tmpBoard);
-    }
-  }, [level, board]);
-
-  const onBoardClick = useCallback((evt) => {
-    const target = evt.target;
-
-    removeUneditedField();
-
-    selectedItem.current = target;
-
-    if (selectedItem.current) {
-      selectedItem.current.classList.add('highlighted');
-    }
-  }, []);
-
   const onKeyboardClick = useCallback(
     (evt) => {
       if (selectedItem) {
@@ -159,6 +110,61 @@ function Sudoku() {
     },
     [selectedItem]
   );
+
+  useEffect(() => {
+    if (level !== defaultLevel) {
+      removeUneditedField();
+      setUserWon(false);
+      setUserBoard([]);
+      const board = sudokuGame.current.create();
+      console.table(board);
+      setBoard(board);
+    }
+  }, [level]);
+
+  useEffect(() => {
+    const board = sudokuGame.current.create();
+    console.table(board);
+    setBoard(board);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keyup', onKeyboardClick);
+
+    return () => {
+      document.removeEventListener('keyup', onKeyboardClick);
+    };
+  }, [onKeyboardClick]);
+
+  useEffect(() => {
+    const tmpBoard: number[][] = [];
+
+    if (board.length) {
+      for (let row = 0; row < board.length; row++) {
+        for (let column = 0; column < board[row].length; column++) {
+          tmpBoard[row] = tmpBoard[row] ?? [];
+          tmpBoard[row][column] = randomIsVisible(level) ? board[row][column] : -1;
+        }
+      }
+      setUserBoard(tmpBoard);
+    }
+  }, [level, board]);
+
+  const onBoardClick = useCallback((evt) => {
+    const target = evt.target;
+
+    if (selectedItem.current) {
+      if (!selectedItem.current.innerText) {
+        selectedItem.current.classList.remove('highlighted');
+      }
+    }
+
+    selectedItem.current = target;
+
+    if (selectedItem.current) {
+      selectedItem.current.classList.add('highlighted');
+    }
+  }, []);
 
   const onItemClick = useCallback(
     (evt: any) => {
