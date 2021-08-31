@@ -122,7 +122,7 @@ class TicTacToe extends React.Component<TicTacToeProps, TicTacToeState> {
         />
         <section className="tic-tac-toe-container">
           <div className="game">
-            <div className="game-board">
+            <div>
               <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
             </div>
             <div className="game-info">

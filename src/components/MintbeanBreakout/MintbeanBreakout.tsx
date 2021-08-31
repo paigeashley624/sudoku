@@ -26,7 +26,7 @@ const MintbeanBreakout = () => {
     let rightPressed = false;
     let leftPressed = false;
     let animationFrame: number;
-    let lives = 1;
+    let lives = 3;
 
     const brickRowCount = 3;
     const brickColumnCount = 5;
@@ -97,7 +97,7 @@ const MintbeanBreakout = () => {
             if (score === brickRowCount * brickColumnCount) {
               setUserWon(true);
               cancelAnimationFrame(animationFrame);
-              document.location.reload();
+              return true;
             }
           }
         }
@@ -146,11 +146,19 @@ const MintbeanBreakout = () => {
       drawPaddle();
       drawScore();
       drawLives();
-      collisionDetection();
+      return collisionDetection();
     };
 
     const draw = () => {
-      drawElements();
+      const isGameOver = drawElements();
+
+      if (isGameOver) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#bf0000';
+        ctx.font = '40px Arial';
+        ctx.fillText('You win!', 160, canvas.height / 2);
+        return;
+      }
 
       if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -206,9 +214,6 @@ const MintbeanBreakout = () => {
         }
       />
       <canvas id="mintbean-breakout-canvas" width="480" height="320"></canvas>
-
-      {userWon && <p className="mintbean-breakout-status-text">You won!</p>}
-      {userLost && <p className="mintbean-breakout-status-text">You lost!</p>}
 
       <div className="mintbean-breakout-actions">
         <ActionButton

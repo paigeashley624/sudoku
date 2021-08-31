@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import SudokuGenerator from "./../lib/SudokuGame";
-import "./Sudoku.scss";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Header from './Header/Header';
+import { useHistory } from 'react-router';
+import ActionButton from './ActionButton/ActionButton';
+import SudokuGenerator from './../lib/SudokuGame';
+import './Sudoku.scss';
 
 enum Difficulty {
   EASY,
@@ -18,7 +21,7 @@ const randomIsVisible = (level: Difficulty) => {
 
   switch (level) {
     case Difficulty.EASY:
-      return rand <= 5;
+      return rand <= 8;
     case Difficulty.MEDIUM:
       return rand <= 4;
     case Difficulty.HARD:
@@ -38,15 +41,7 @@ const SudokuRow = ({ data, row, level }: SudokuRowProps) => {
   const [originalRowData, setOriginalRowData] = useState<number[]>();
 
   useEffect(() => {
-    if (!originalRowData) {
-      setOriginalRowData([...data]);
-    }
-  }, [originalRowData, data]);
-
-  useEffect(() => {
-    if (level !== defaultLevel) {
-      setOriginalRowData([...data]);
-    }
+    setOriginalRowData([...data]);
   }, [level, data]);
 
   if (!Array.isArray(data)) {
@@ -57,13 +52,8 @@ const SudokuRow = ({ data, row, level }: SudokuRowProps) => {
     <div className="box-row">
       {data.map((num, i) => {
         return (
-          <div
-            key={`row-${row} column-${i}`}
-            data-column={i}
-            data-row={row}
-            className={`box ${originalRowData?.[i] === -1 ? "" : "box-is-visible"}`}
-          >
-            {num === -1 ? "" : num}
+          <div key={`row-${row} column-${i}`} data-column={i} data-row={row} className={`box ${originalRowData?.[i] === -1 ? '' : 'box-is-visible'}`}>
+            {num === -1 ? '' : num}
           </div>
         );
       })}
@@ -72,6 +62,7 @@ const SudokuRow = ({ data, row, level }: SudokuRowProps) => {
 };
 
 function Sudoku() {
+  const history = useHistory();
   const sudokuGame = useRef(new SudokuGenerator());
   const selectedItem = useRef<HTMLElement>();
   const [board, setBoard] = useState<number[][]>([]);
@@ -90,18 +81,35 @@ function Sudoku() {
     }
   }, [attempts, userBoard, sudokuGame]);
 
+  const removeUneditedField = () => {
+    if (selectedItem.current) {
+      if (!selectedItem.current.innerText) {
+        selectedItem.current.classList.remove('highlighted');
+      }
+    }
+  };
+
   useEffect(() => {
     if (level !== defaultLevel) {
+      removeUneditedField();
       setUserWon(false);
       setUserBoard([]);
       const board = sudokuGame.current.create();
+      console.table(board);
       setBoard(board);
     }
   }, [level]);
 
   useEffect(() => {
     const board = sudokuGame.current.create();
+    console.table(board);
     setBoard(board);
+
+    document.addEventListener('keyup', onKeyboardClick);
+
+    return () => {
+      document.removeEventListener('keyup', onKeyboardClick);
+    };
   }, []);
 
   useEffect(() => {
@@ -120,18 +128,43 @@ function Sudoku() {
 
   const onBoardClick = useCallback((evt) => {
     const target = evt.target;
+
+    removeUneditedField();
+
     selectedItem.current = target;
 
     if (selectedItem.current) {
-      selectedItem.current.classList.add("highlighted");
+      selectedItem.current.classList.add('highlighted');
     }
   }, []);
+
+  const onKeyboardClick = useCallback(
+    (evt) => {
+      if (selectedItem) {
+        const column = selectedItem.current?.getAttribute('data-column') as string;
+        const row = selectedItem.current?.getAttribute('data-row') as string;
+
+        if (column && row) {
+          const val = +evt.key;
+
+          if (!isNaN(val) && val) {
+            setUserBoard((b) => {
+              b[+row][+column] = +evt.key;
+              return b;
+            });
+            setAttempts((c) => c + 1);
+          }
+        }
+      }
+    },
+    [selectedItem]
+  );
 
   const onItemClick = useCallback(
     (evt: any) => {
       const target = evt.target;
-      const column = selectedItem.current?.getAttribute("data-column") as string;
-      const row = selectedItem.current?.getAttribute("data-row") as string;
+      const column = selectedItem.current?.getAttribute('data-column') as string;
+      const row = selectedItem.current?.getAttribute('data-row') as string;
 
       if (column && row) {
         setUserBoard((b) => {
@@ -145,25 +178,38 @@ function Sudoku() {
   );
 
   return (
-    <header className="sudoku-page-banner">
-      {/* need to get this aligned side by side */}
-      <h1 className="sudoku-page-banner-title">Sudoku</h1>
+    <main className="sudoku-page-banner">
+      <Header
+        text="Sudoku"
+        subText={
+          'The objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 subgrids that compose the grid contain all of the digits from 1 to 9'
+        }
+      />
       <div className="sudoku-level-selector-container">
         <h4
-          className={`sudoku-level-selector ${level === Difficulty.EASY ? "sudoku-level-selected" : ""}`}
-          onClick={() => setLevel(Difficulty.EASY)}
+          className={`sudoku-level-selector ${level === Difficulty.EASY ? 'sudoku-level-selected' : ''}`}
+          onClick={() => {
+            setLevel(Difficulty.EASY);
+            setAttempts(0);
+          }}
         >
           Easy
         </h4>
         <h4
-          className={`sudoku-level-selector ${level === Difficulty.MEDIUM ? "sudoku-level-selected" : ""}`}
-          onClick={() => setLevel(Difficulty.MEDIUM)}
+          className={`sudoku-level-selector ${level === Difficulty.MEDIUM ? 'sudoku-level-selected' : ''}`}
+          onClick={() => {
+            setLevel(Difficulty.MEDIUM);
+            setAttempts(0);
+          }}
         >
           Medium
         </h4>
         <h4
-          className={`sudoku-level-selector ${level === Difficulty.HARD ? "sudoku-level-selected" : ""}`}
-          onClick={() => setLevel(Difficulty.HARD)}
+          className={`sudoku-level-selector ${level === Difficulty.HARD ? 'sudoku-level-selected' : ''}`}
+          onClick={() => {
+            setLevel(Difficulty.HARD);
+            setAttempts(0);
+          }}
         >
           Hard
         </h4>
@@ -193,7 +239,26 @@ function Sudoku() {
           <li className="flex-item">9</li>
         </ul>
       </section>
-    </header>
+
+      <div>
+        <ActionButton
+          onClick={() => {
+            history.push('/');
+          }}
+        >
+          Go Home
+        </ActionButton>
+        <ActionButton
+          disabled={attempts === 0}
+          onClick={() => {
+            setLevel((level + 1) % 3);
+            setAttempts(0);
+          }}
+        >
+          New Game
+        </ActionButton>
+      </div>
+    </main>
   );
 }
 
